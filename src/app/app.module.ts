@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {FormsModule,ReactiveFormsModule} from '@angular/forms'
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { FormComponent } from './form/form.component';
+import { DetailComponent } from './detail/detail.component'
 
 @NgModule({
   declarations: [    //เป็นการประกาศว่าเราจะทำการ new object ขึ้นมา , สร้าง component ขึ้นมาประกาศที่นี่
-    AppComponent
+    AppComponent, FormComponent, DetailComponent
   ],
   imports: [
     BrowserModule,
