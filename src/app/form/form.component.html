@@ -1,4 +1,5 @@
 <!-- [formGroup]="formGroup" เป็นการบอกให้เป็น angular , [] คือ input , () คือ output  -->
+<!-- [formGroup] คือ input (ngSubmit) คือ output ของ angular ที่เค้ากำหนดมาให้ -->
 <!-- placeholder คือการใส่ข้อความให้มันหายไป -->
 <!--[formControl]="firstName" -->
 <!-- เวลาใส่ค่า input ใน age ถ้าน้อยหรือเกิน min กับ max จะ error เวลา validate  -->
@@ -8,7 +9,19 @@
     type="text"
     formControlName="firstName" 
     placeholder="first name" 
-    >
+    ><label style="color: palevioletred"
+    *ngIf=
+    "formGroup.get('firstName').invalid && 
+    formGroup.get('firstName').touched &&
+    formGroup.get('firstName').errors['required']"
+    >Required.</label>
+
+    <label style="color: red"
+    *ngIf=
+    "formGroup.get('firstName').invalid && 
+    formGroup.get('firstName').touched &&
+    formGroup.get('firstName').errors['minlength']"
+    >min is 3.</label>
   </div>
   <div>
       <input
@@ -16,13 +29,32 @@
       formControlName="lastName"
       placeholder="last name"
       >
+      <label style="color: palevioletred"
+      *ngIf=
+      "formGroup.get('lastName').invalid && 
+      formGroup.get('lastName').touched &&
+      formGroup.get('lastName').errors['required']"
+      >Required.</label>
+
+      <label style="color: red"
+      *ngIf=
+      "formGroup.get('lastName').invalid && 
+      formGroup.get('lastName').touched &&
+      formGroup.get('lastName').errors['minlength']"
+      >min is 3.</label>
     </div>
     <div>
-        <input
-        type="text"
-        formControlName="email"
-        placeholder="e-mail"
-        >
+      <input
+      type="text"
+      formControlName="email"
+      placeholder="e-mail"
+      >
+      <label style="color: palevioletred"
+      *ngIf=
+      "formGroup.get('email').invalid && 
+      formGroup.get('email').touched &&
+      formGroup.get('email').errors['email']"
+      >e-mail is invalid.</label>
     </div>
     <div>
         <input
@@ -32,6 +64,12 @@
         min="0"
         max="99" 
         >
+        <label style="color: palevioletred"
+        *ngIf=
+        "formGroup.get('age').invalid && 
+        formGroup.get('age').touched &&
+        (formGroup.get('age').errors['min'] || formGroup.get('age').errors['max'])"
+        > Between is 0 and 99</label>
     </div>
     <button>Submit</button>
 </form>
