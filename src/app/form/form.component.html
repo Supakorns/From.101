@@ -1,3 +1,37 @@
-<p>
-  form works!
-</p>
+<!-- [formGroup]="formGroup" เป็นการบอกให้เป็น angular , [] คือ input , () คือ output  -->
+<!-- placeholder คือการใส่ข้อความให้มันหายไป -->
+<!--[formControl]="firstName" -->
+<!-- เวลาใส่ค่า input ใน age ถ้าน้อยหรือเกิน min กับ max จะ error เวลา varidate  -->
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup)"> 
+  <div>
+    <input
+    type="text"
+    formControlName="firstName" 
+    placeholder="first name" 
+    >
+  </div>
+  <div>
+      <input
+      type="text"
+      formControlName="lastName"
+      placeholder="last name"
+      >
+    </div>
+    <div>
+        <input
+        type="text"
+        formControlName="email"
+        placeholder="e-mail"
+        >
+    </div>
+    <div>
+        <input
+        type="number"
+        formControlName="age"
+        placeholder="old"
+        min="0"
+        max="99" 
+        >
+    </div>
+    <button>Submit</button>
+</form>

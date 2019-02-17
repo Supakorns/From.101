@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { User } from '../user';
 
 @Component({
   selector: 'app-form',
@@ -19,8 +20,18 @@ export class FormComponent implements OnInit {
     this.formGroup =  this.formBuild.group({ //formBuild สร้าง Form
       firstName: this.formBuild.control(''), //แบบเต็ม
       //firstName: [''],   //สร้าง FormControl แบบย่อ
-      lastName: ['']
+      lastName: [''],
+      email: [''],
+      age: ['']
+      //lastName: ['sdadsadasd'] การ set ค่า sdadsadasd เข้าไป
     })
   }
-
+  onSubmit(form: FormGroup){
+    //console.log(form);
+    const {firstName, lastName, email, age} = form.value;
+    const user = new User(firstName, lastName, email , age);
+    console.log(user);
+    //console.log(firstName, lastName);
+    
+  }
 }
