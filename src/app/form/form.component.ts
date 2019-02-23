@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { User } from '../user';
 
@@ -10,8 +10,7 @@ import { User } from '../user';
 export class FormComponent implements OnInit {
   //formBuild:FormBuilder; "//สร้างตัวแปรมาเก็บแบบแรก"
   formGroup: FormGroup;
-  @OutPut() change = new EventEmitter();
-
+  @Output() change = new EventEmitter();
 
   constructor(
     //fb: FormBuilder "//ใช้ได้แค่ใน constructer เท่านั้นเอาออกมาไม่ได้"
@@ -29,34 +28,50 @@ export class FormComponent implements OnInit {
       //lastName: ['sdadsadasd'] การ set ค่า sdadsadasd เข้าไป
     })
   }
-  EmilValidator(control: AbstractControl){
-    const value = control.value;
-    if (value && value.includes('@')){
-      return null;
-    }
-    return {
-      email: {
-        acturl: value,
-        expect: 'email@example'
-      }
-    }
-  }
+  // EmilValidator(control: AbstractControl){
+  //   const value = control.value;
+  //   if (value && value.includes('@')){
+  //     return null;
+  //   }
+  //   return {
+  //     email: {
+  //       acturl: value,
+  //       expect: 'email@example'
+  //     }
+  //   }
+  // }
+
+  // onSubmit(form: FormGroup) {
+   
+  //   if (form.valid) {
+  //     const {firstName,lastName,age,email} = form.value;
+  //     const user = new User(firstName,lastName,age,email);
+  //     this.change.emit(user);
+  //     console.log(user);
+  //   } else {
+  //     ['firstName','lastName','age','email'].forEach((key: string) => {
+  //       console.log(form.get(key).errors);
+  //       form.get(key).markAsTouched();
+  //     })
+  //   }
+
   onSubmit(form: FormGroup){
-    console.log(form.valid, form.invalid);
-    console.log(<FormControl>form.get('firstName').errors);
-    
+  //   console.log(form.valid, form.invalid);
+  //   console.log(<FormControl>form.get('firstName').errors);
     if (form.valid) {
       const {firstName, lastName, email, age} = form.value;
       const user = new User(firstName, lastName, email , age);
+      this.change.emit(user);
       console.log(user);
-      this.change.emit()
     } else {
       ['firstName', 'lastName', 'age', 'email' ].forEach((key: string) => 
-      {console.log(form.get(key)),
-        form.get(key).markAsTouched()  //กด submit แล้วให้โชว์ required ถ้ายังไม่ได้กรอก
-      
+      {console.log(form.get(key).errors);
+      form.get(key).markAsTouched();  //กด submit แล้วให้โชว์ required ถ้ายังไม่ได้กรอก
       }) 
     }
+
+
+
     //const {firstName, lastName, email, age} = form.value;
     // if (!(firstName && firstName.length >= 3)){   "//การ validationแบบทั่วๆไป"
     //   alert('hello')
